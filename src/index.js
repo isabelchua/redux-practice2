@@ -4,22 +4,38 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
-const reducer = (state, actions) => {
-	console.log(actions);
-	if (actions.type === "UPDATE_NAME") {
+const personReducer = (state = {}, actions) => {
+	//console.log(actions);
+	if (actions.type === "UPDATE_PERSON") {
 		return { name: actions.payload };
 	}
 
-	return { name: "isabel" };
+	return state;
 };
 
-const store = createStore(reducer);
+const gameReducer = (state = {}, { type, payload }) => {
+	if (type === "UPDATE_GAME") {
+		return payload;
+	}
+	return state;
+};
+
+const AllReducers = combineReducers({
+	game: gameReducer,
+	person: personReducer
+});
+
+const InitialStates = {
+	game: { name: "Football" },
+	person: { name: "Isabel" }
+};
+const store = createStore(AllReducers, InitialStates);
 
 console.log(store.getState());
 
-store.dispatch({ type: "UPDATE_NAME", payload: "chinggay" });
+store.dispatch({ type: "UPDATE_PERSON", payload: "chinggay" });
 
 console.log(store.getState());
 
