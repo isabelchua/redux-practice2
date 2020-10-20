@@ -1,8 +1,13 @@
+import { UPDATE_GAME } from "../actions/gameActions";
+
 const gameReducer = (state = {}, { type, payload }) => {
-	if (type === "UPDATE_GAME") {
-		return payload;
+	switch (type) {
+		case UPDATE_GAME:
+			return { game: payload };
+
+		default:
+			return state;
 	}
-	return state;
 };
 
 export default gameReducer;

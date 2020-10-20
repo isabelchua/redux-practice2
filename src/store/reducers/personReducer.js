@@ -1,10 +1,13 @@
-const personReducer = (state = {}, actions) => {
-	//console.log(actions);
-	if (actions.type === "UPDATE_PERSON") {
-		return { name: actions.payload };
-	}
+import { UPDATE_PERSON } from "../actions/personActions";
 
-	return state;
+const personReducer = (state = {}, { type, payload }) => {
+	switch (type) {
+		case UPDATE_PERSON:
+			return { name: payload };
+		default:
+			return state;
+	}
+	//console.log(actions);
 };
 
 export default personReducer;
